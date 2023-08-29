@@ -1,0 +1,28 @@
+stages:
+  process_data:
+    cmd: Rscript src/prepare.R
+    deps:
+    - data/raw/MarathonData.csv
+    - src/prepare.R
+    outs:
+    - data/processed:
+        persist: true
+  train_evaluate_model:
+    cmd: Rscript src/train-test.R
+    deps:
+    - data/processed
+    - src/train-test.R
+    outs:
+    - models/modelo.RData:
+        persist: true
+    # metrics:
+    # - metrics.csv
+    # params:
+    # - params.yaml
+  # evaluate_model:
+  #   cmd: python training/src/evaluate_model.py
+  #   deps:
+  #   - config/main.yaml
+  #   - data/processed
+  #   - models/xgboost
+  #   - training/src/evaluate_model.py

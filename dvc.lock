@@ -1,0 +1,36 @@
+schema: '2.0'
+stages:
+  process_data:
+    cmd: Rscript src/prepare.R
+    deps:
+    - path: data/raw/MarathonData.csv
+      hash: md5
+      md5: d93682da9389ec9e04920ca8f3aa6697
+      size: 5664
+    - path: src/prepare.R
+      hash: md5
+      md5: 196339659e54a42e977411c68ad6ab3a
+      size: 1272
+    outs:
+    - path: data/processed
+      hash: md5
+      md5: f32c7335c45ad5c478ade7cba08e21c7.dir
+      size: 2735
+      nfiles: 1
+  train_evaluate_model:
+    cmd: Rscript src/train-test.R
+    deps:
+    - path: data/processed
+      hash: md5
+      md5: f32c7335c45ad5c478ade7cba08e21c7.dir
+      size: 2735
+      nfiles: 1
+    - path: src/train-test.R
+      hash: md5
+      md5: 0d477910234f79cd45ed3f93c21247ba
+      size: 1427
+    outs:
+    - path: models/modelo.RData
+      hash: md5
+      md5: 930c2782f7179a9af10074d7390792b5
+      size: 2057

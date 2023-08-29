@@ -1,0 +1,7 @@
+venv/
+.ipynb_checkpoints/
+*.json
+*.csv
+!metrics.csv
+*.pkl
+*.RData
